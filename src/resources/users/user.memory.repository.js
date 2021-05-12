@@ -1,12 +1,12 @@
 const db = require('../../db')
 
-const getAll = async () => {
+const getAll = () => {
   // TODO: mock implementation. should be replaced during task development
   const result = db.getUsers()
   return result;
 };
 
-const add = async (user) => {
+const add = (user) => {
   db.addUser(user)
 }
 

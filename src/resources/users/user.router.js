@@ -8,14 +8,20 @@ router.route('/').get(async (req, res) => {
   res.json(users.map(User.toResponse));
 });
 
+router.route('/:id').get(async (req, res) => {
+  const user = await usersService.get(req.params.id)
+  res.status(user ? 200 : 404)
+  res.json(user)
+})
+
 router.route('/').post(async (req, res) => {
-  const params = {
+  const usersData = {
     name: req.body.name,
     login: req.body.login,
     password: req.body.password
   }
 
-  const newUser = await usersService.add(params)
+  const newUser = await usersService.add(usersData)
 
   res.status(201)
   res.json(newUser)

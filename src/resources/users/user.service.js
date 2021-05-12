@@ -3,6 +3,11 @@ const User = require('./user.model')
 
 const getAll = () => usersRepo.getAll();
 
+const get = (id) => {
+  const users = usersRepo.getAll()
+  return users.find(user => user.id === id)
+}
+
 const add = (params) => {
   const newUser = new User(params)
 
@@ -11,4 +16,4 @@ const add = (params) => {
   return User.toResponse(newUser)
 }
 
-module.exports = { getAll, add };
+module.exports = { getAll, add, get };
