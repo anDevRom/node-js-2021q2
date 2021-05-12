@@ -27,4 +27,11 @@ router.route('/').post(async (req, res) => {
   res.json(newUser)
 })
 
+router.route('/:id').delete(async (req, res) => {
+  const deletedUser = usersService.remove(req.params.id)
+
+  res.status(deletedUser ? 204 : 404)
+  res.json(deletedUser)
+})
+
 module.exports = router;

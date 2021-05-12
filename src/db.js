@@ -7,6 +7,10 @@ const dataBase = {
 
   addUser(user) {
     this._users.push(user)
+  },
+
+  setUsers(users) {
+    this._users = users
   }
 }
 

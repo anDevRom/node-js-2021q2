@@ -5,6 +5,7 @@ const getAll = () => usersRepo.getAll();
 
 const get = (id) => {
   const users = usersRepo.getAll()
+
   return users.find(user => user.id === id)
 }
 
@@ -16,4 +17,17 @@ const add = (params) => {
   return User.toResponse(newUser)
 }
 
-module.exports = { getAll, add, get };
+const remove = (id) => {
+  const users = usersRepo.getAll()
+  const userForDelete = users.find(user => user.id === id)
+
+  if (userForDelete) {
+    const newUsers = users.filter(user => user.id !== id)
+
+    usersRepo.set(newUsers)
+  }
+
+  return userForDelete
+}
+
+module.exports = { getAll, add, get, remove };

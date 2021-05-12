@@ -10,4 +10,8 @@ const add = (user) => {
   db.addUser(user)
 }
 
-module.exports = { getAll, add };
+const set = (users) => {
+  db.setUsers(users)
+}
+
+module.exports = { getAll, add, set };
