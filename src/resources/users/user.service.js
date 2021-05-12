@@ -17,6 +17,15 @@ const add = (params) => {
   return User.toResponse(newUser)
 }
 
+const update = (id, params) => {
+  const users = usersRepo.getAll()
+  const userForUpdate = users.find(user => user.id === id)
+
+  Object.assign(userForUpdate, params)
+
+  return userForUpdate
+}
+
 const remove = (id) => {
   const users = usersRepo.getAll()
   const userForDelete = users.find(user => user.id === id)
@@ -30,4 +39,4 @@ const remove = (id) => {
   return userForDelete
 }
 
-module.exports = { getAll, add, get, remove };
+module.exports = { getAll, add, get, remove, update };

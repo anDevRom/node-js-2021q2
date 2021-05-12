@@ -27,6 +27,13 @@ router.route('/').post(async (req, res) => {
   res.json(newUser)
 })
 
+router.route(('/:id')).put(async (req, res) => {
+  const updatedUser = usersService.update(req.params.id, req.body)
+
+  res.status(updatedUser ? 200 : 404)
+  res.json(updatedUser)
+})
+
 router.route('/:id').delete(async (req, res) => {
   const deletedUser = usersService.remove(req.params.id)
 
