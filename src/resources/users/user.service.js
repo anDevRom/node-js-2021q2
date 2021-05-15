@@ -1,5 +1,7 @@
 const usersRepo = require('./user.memory.repository');
-const User = require('./user.model')
+const User = require('./user.model');
+
+const taskRepo = require('../tasks/task.memory.repository')
 
 const getAll = () => usersRepo.getAll();
 
@@ -31,6 +33,14 @@ const remove = (id) => {
   const userForDelete = users.find(user => user.id === id)
 
   if (userForDelete) {
+    const tasks = taskRepo.getAll()
+    tasks.forEach(task => {
+      if (task.userId === id) {
+        // eslint-disable-next-line no-param-reassign
+        task.userId = null
+      }
+    })
+
     const newUsers = users.filter(user => user.id !== id)
 
     usersRepo.set(newUsers)

@@ -1,6 +1,8 @@
 const boardsRepo = require('./board.memory.repositiry');
 const Board = require('./board.model');
 
+const tasksRepo = require('../tasks/task.memory.repository')
+
 const getAll = () => boardsRepo.getAll();
 
 const get = (id) => {
@@ -33,6 +35,11 @@ const remove = (id) => {
   const boardForDelete = boards.find(board => board.id === id)
 
   if (boardForDelete) {
+    const tasks = tasksRepo.getAll()
+
+    const newTasks = tasks.filter(task => task.boardId !== id)
+    tasksRepo.setAll(newTasks)
+
     const newBoards = boards.filter(board => board.id !== id)
 
     boardsRepo.set(newBoards)

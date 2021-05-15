@@ -1,6 +1,7 @@
 const dataBase = {
   _users: [],
   _boards: [],
+  _tasks: [],
 
   getUsers() {
     return this._users
@@ -24,6 +25,14 @@ const dataBase = {
 
   setBoards(boards) {
     this._boards = boards
+  },
+
+  getTasks() {
+    return this._tasks
+  },
+
+  setTasks(tasks) {
+    this._tasks = tasks
   }
 }
 
