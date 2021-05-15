@@ -20,6 +20,10 @@ const dataBase = {
 
   createBoard(board) {
     this._boards.push(board)
+  },
+
+  setBoards(boards) {
+    this._boards = boards
   }
 }
 

@@ -3,6 +3,11 @@ const Board = require('./board.model');
 
 const getAll = () => boardsRepo.getAll();
 
+const get = (id) => {
+  const boards = boardsRepo.getAll()
+  return boards.find(board => board.id === id)
+}
+
 const create = (params) => {
   const newBoardParams = {
     id: params.id,
@@ -16,4 +21,24 @@ const create = (params) => {
   return newBoard
 }
 
-module.exports = { getAll, create };
+const update = (id, params) => {
+  const boards = boardsRepo.getAll()
+  const boardForUpdate = boards.find(board => board.id === id)
+
+  return Object.assign(boardForUpdate, params)
+}
+
+const remove = (id) => {
+  const boards = boardsRepo.getAll()
+  const boardForDelete = boards.find(board => board.id === id)
+
+  if (boardForDelete) {
+    const newBoards = boards.filter(board => board.id !== id)
+
+    boardsRepo.set(newBoards)
+  }
+
+  return boardForDelete
+}
+
+module.exports = { getAll, get, create, update, remove };
