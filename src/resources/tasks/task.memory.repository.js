@@ -1,6 +1,6 @@
-const db = require('../../db')
+const db = require('../../db');
 
-const getAll = () => db.getTasks()
-const setAll = (newTasks) => db.setTasks(newTasks)
+const getAll = () => db.getTasks();
+const setAll = (newTasks) => db.setTasks(newTasks);
 
-module.exports = { getAll, setAll }
+module.exports = { getAll, setAll };
