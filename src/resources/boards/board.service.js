@@ -7,15 +7,15 @@ const tasksRepo = require('../tasks/task.memory.repository');
  * Return all boards from repository
  * @return {Array} - All boards
  */
-const getAll = () => boardsRepo.getAll();
+const getAllBoardsFormRep = () => boardsRepo.getAllBoards();
 
 /**
  * Return board by id
  * @param id {string} - Id of board
  * @return {Object} - Founded board
  */
-const get = (id) => {
-  const boards = boardsRepo.getAll();
+const getBoardFromRep = (id) => {
+  const boards = boardsRepo.getAllBoards();
   return boards.find(board => board.id === id);
 };
 
@@ -24,7 +24,7 @@ const get = (id) => {
  * @param params {Object} - Parameters for creation
  * @return {Board} - Created board
  */
-const create = (params) => {
+const createBoard = (params) => {
   const newBoardParams = {
     id: params.id,
     title: params.title,
@@ -32,7 +32,7 @@ const create = (params) => {
   };
   const newBoard = new Board(newBoardParams);
 
-  boardsRepo.create(newBoard);
+  boardsRepo.createBoard(newBoard);
 
   return newBoard;
 };
@@ -43,8 +43,8 @@ const create = (params) => {
  * @param params {Object} - Parameters for updating
  * @return {Object} - Updated board
  */
-const update = (id, params) => {
-  const boards = boardsRepo.getAll();
+const updateBoard = (id, params) => {
+  const boards = boardsRepo.getAllBoards();
   const boardForUpdate = boards.find(board => board.id === id);
 
   return Object.assign(boardForUpdate, params);
@@ -55,22 +55,22 @@ const update = (id, params) => {
  * @param id {string} - Id of board
  * @return {Object} - Deleted board
  */
-const remove = (id) => {
-  const boards = boardsRepo.getAll();
+const removeBoard = (id) => {
+  const boards = boardsRepo.getAllBoards();
   const boardForDelete = boards.find(board => board.id === id);
 
   if (boardForDelete) {
-    const tasks = tasksRepo.getAll();
+    const tasks = tasksRepo.getAllTasks();
 
     const newTasks = tasks.filter(task => task.boardId !== id);
-    tasksRepo.setAll(newTasks);
+    tasksRepo.setAllTasks(newTasks);
 
     const newBoards = boards.filter(board => board.id !== id);
 
-    boardsRepo.set(newBoards);
+    boardsRepo.setAllBoards(newBoards);
   }
 
   return boardForDelete;
 };
 
-module.exports = { getAll, get, create, update, remove };
+module.exports = { getAllBoardsFormRep, getBoardFromRep, createBoard, updateBoard, removeBoard };
