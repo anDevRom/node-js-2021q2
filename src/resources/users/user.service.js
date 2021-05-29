@@ -7,15 +7,15 @@ const taskRepo = require('../tasks/task.memory.repository');
  * Returns all users from repository
  * @returns {Array} - Array of all users
  */
-const getAll = () => usersRepo.getAll();
+const getAllUsersFromRepository = () => usersRepo.getAllUsers();
 
 /**
  * Returns user by id from repository
  * @param {string} id - Users id
  * @returns {Object} - Object representation of user
  */
-const get = (id) => {
-  const users = usersRepo.getAll();
+const getUserFromRepository = (id) => {
+  const users = usersRepo.getAllUsers();
 
   return users.find(user => user.id === id);
 };
@@ -25,10 +25,10 @@ const get = (id) => {
  * @param {Object} params - Users parameters
  * @returns {Object} - Object representation of new user
  */
-const add = (params) => {
+const addUserToRepository = (params) => {
   const newUser = new User(params);
 
-  usersRepo.add(newUser);
+  usersRepo.addUser(newUser);
 
   return User.toResponse(newUser);
 };
@@ -39,8 +39,8 @@ const add = (params) => {
  * @param {Object} params - Users parameters
  * @returns {Object} - Object representation of updated user
  */
-const update = (id, params) => {
-  const users = usersRepo.getAll();
+const updateUserFromRepository = (id, params) => {
+  const users = usersRepo.getAllUsers();
   const userForUpdate = users.find(user => user.id === id);
 
   Object.assign(userForUpdate, params);
@@ -53,8 +53,8 @@ const update = (id, params) => {
  * @param {string} id - Users id
  * @return {Object} - Object representation of deleted user
  */
-const remove = (id) => {
-  const users = usersRepo.getAll();
+const removeUserFromRepository = (id) => {
+  const users = usersRepo.getAllUsers();
   const userForDelete = users.find(user => user.id === id);
 
   if (userForDelete) {
@@ -68,10 +68,10 @@ const remove = (id) => {
 
     const newUsers = users.filter(user => user.id !== id);
 
-    usersRepo.set(newUsers);
+    usersRepo.setUsers(newUsers);
   }
 
   return userForDelete;
 };
 
-module.exports = { getAll, add, get, remove, update };
+module.exports = { getAllUsersFromRepository, addUserToRepository, getUserFromRepository, removeUserFromRepository, updateUserFromRepository };
