@@ -58,7 +58,7 @@ const removeUserFromRepository = (id) => {
   const userForDelete = users.find(user => user.id === id);
 
   if (userForDelete) {
-    const tasks = taskRepo.getAll();
+    const tasks = taskRepo.getAllTasks();
     tasks.forEach(task => {
       if (task.userId === id) {
         // eslint-disable-next-line no-param-reassign

@@ -6,8 +6,8 @@ const Task = require('./task.model');
  * @param boardId {string} - Board id
  * @return {Array} - Array of all tasks of board
  */
-const getAll = (boardId) => {
-  const allTasks = tasksRepo.getAll();
+const getAllTasksFromRep = (boardId) => {
+  const allTasks = tasksRepo.getAllTasks();
   return allTasks.filter(task => task.boardId === boardId);
 };
 
@@ -16,8 +16,8 @@ const getAll = (boardId) => {
  * @param taskId {string} - Task id
  * @return {Object} - Object representation of task
  */
-const getOne = (taskId) => {
-  const allTasks = tasksRepo.getAll();
+const getTaskFromRep = (taskId) => {
+  const allTasks = tasksRepo.getAllTasks();
   return allTasks.find(task => task.id === taskId);
 };
 
@@ -27,9 +27,9 @@ const getOne = (taskId) => {
  * @param params {Object} - Parameters of board
  * @return {Task} - New task
  */
-const create = (boardId, params) => {
+const createTask = (boardId, params) => {
   const newTask = new Task({...params, boardId});
-  const allTasks = tasksRepo.getAll();
+  const allTasks = tasksRepo.getAllTasks();
   allTasks.push(newTask);
 
   return newTask;
@@ -42,8 +42,8 @@ const create = (boardId, params) => {
  * @param params {Object} - Parameters for updating
  * @return {Object} - Updated task
  */
-const update = (boardId, taskId, params) => {
-  const allTasks = tasksRepo.getAll();
+const updateTask = (boardId, taskId, params) => {
+  const allTasks = tasksRepo.getAllTasks();
 
   const taskForUpdate = allTasks.find(task => task.id === taskId);
   return Object.assign(taskForUpdate, params, { boardId });
@@ -54,8 +54,8 @@ const update = (boardId, taskId, params) => {
  * @param taskId {string} - Id of task
  * @return {Object} - Deleted task
  */
-const remove = (taskId) => {
-  const allTasks = tasksRepo.getAll();
+const removeTask = (taskId) => {
+  const allTasks = tasksRepo.getAllTasks();
   let index;
 
   const taskForDelete = allTasks.find((task, idx) => {
@@ -68,4 +68,4 @@ const remove = (taskId) => {
   return taskForDelete;
 };
 
-module.exports = { getAll, getOne, create, update, remove };
+module.exports = { getAllTasksFromRep, getTaskFromRep, createTask, updateTask, removeTask };
