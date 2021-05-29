@@ -3,14 +3,28 @@ const User = require('./user.model');
 
 const taskRepo = require('../tasks/task.memory.repository');
 
+/**
+ * Returns all users from repository
+ * @returns {Array} - Array of all users
+ */
 const getAll = () => usersRepo.getAll();
 
+/**
+ * Returns user by id from repository
+ * @param {string} id - Users id
+ * @returns {Object} - Object representation of user
+ */
 const get = (id) => {
   const users = usersRepo.getAll();
 
   return users.find(user => user.id === id);
 };
 
+/**
+ * Create new user and add it to repository
+ * @param {Object} params - Users parameters
+ * @returns {Object} - Object representation of new user
+ */
 const add = (params) => {
   const newUser = new User(params);
 
@@ -19,6 +33,12 @@ const add = (params) => {
   return User.toResponse(newUser);
 };
 
+/**
+ * Update user by id
+ * @param {string} id - Users id
+ * @param {Object} params - Users parameters
+ * @returns {Object} - Object representation of updated user
+ */
 const update = (id, params) => {
   const users = usersRepo.getAll();
   const userForUpdate = users.find(user => user.id === id);
@@ -28,6 +48,11 @@ const update = (id, params) => {
   return userForUpdate;
 };
 
+/**
+ * Delete user by id
+ * @param {string} id - Users id
+ * @return {Object} - Object representation of deleted user
+ */
 const remove = (id) => {
   const users = usersRepo.getAll();
   const userForDelete = users.find(user => user.id === id);
