@@ -7,6 +7,7 @@ import {
   updateUserFromRepository,
   removeUserFromRepository
 } from './user.service';
+import { IRequestUserParams } from './user.interfaces';
 
 const router = Router()
 
@@ -21,7 +22,7 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const usersData = {
+  const usersData: IRequestUserParams = {
     name: req.body.name,
     login: req.body.login,
     password: req.body.password

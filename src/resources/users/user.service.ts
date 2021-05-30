@@ -2,6 +2,7 @@ import { IUser } from './user.model';
 import { getAllUsers, setUsers, addUser } from './user.memory.repository';
 import { User } from './user.model';
 import { getAllTasks } from '../tasks/task.memory.repository';
+import { IRequestUserParams } from './user.interfaces';
 
 export const getAllUsersFromRepository = (): Array<IUser> => getAllUsers();
 
@@ -11,7 +12,7 @@ export const getUserFromRepository = (id: string): IUser | undefined => {
   return users.find((user: IUser) => user.id === id);
 };
 
-export const addUserToRepository = (params): IUser => {
+export const addUserToRepository = (params: IRequestUserParams): IUser => {
   const newUser = new User(params);
 
   addUser(newUser);
@@ -19,7 +20,7 @@ export const addUserToRepository = (params): IUser => {
   return User.toResponse(newUser);
 };
 
-export const updateUserFromRepository = (id: string, params): IUser | undefined => {
+export const updateUserFromRepository = (id: string, params: IRequestUserParams): IUser | undefined => {
   const users = getAllUsers();
   const userForUpdate = users.find(user => user.id === id);
 
