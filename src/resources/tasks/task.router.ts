@@ -28,4 +28,4 @@ router.route('/:boardId/tasks/:taskId').delete(async (req, res) => {
   res.status(task ? 204 : 404).json(task);
 });
 
-module.exports = router;
+export default router;

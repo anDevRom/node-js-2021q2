@@ -1,4 +1,4 @@
-import { Response, Router } from 'express';
+import { Router } from 'express';
 import { User } from './user.model';
 import {
   getAllUsersFromRepository,
@@ -11,9 +11,11 @@ import { IRequestUserParams } from './user.interfaces';
 
 const router = Router()
 
-router.route('/').get(async (res: Response) => {
-  const users = await getAllUsersFromRepository();
-  res.json(users.map(User.toResponse));
+router.route('/').get(async (req, res) => {
+  if (req.method) {
+    const users = await getAllUsersFromRepository();
+    res.json(users.map(User.toResponse));
+  }
 });
 
 router.route('/:id').get(async (req, res) => {
@@ -43,4 +45,4 @@ router.route('/:id').delete(async (req, res) => {
   res.status(deletedUser ? 204 : 404).json(deletedUser);
 });
 
-module.exports = router;
+export default router;

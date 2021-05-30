@@ -1,11 +1,13 @@
-import { Response, Router } from 'express';
+import { Router } from 'express';
 import { getAllBoardsFormRep, getBoardFromRep, createBoardRep, updateBoard, removeBoard } from './board.service';
 
 const router = Router();
 
-router.route('/').get(async (res: Response) => {
-  const boards = await getAllBoardsFormRep();
-  res.status(boards ? 200 : 404).json(boards);
+router.route('/').get(async (req, res) => {
+  if (req.method) {
+    const boards = await getAllBoardsFormRep();
+    res.status(boards ? 200 : 404).json(boards);
+  }
 });
 
 router.route('/:id').get(async (req, res) => {
@@ -28,4 +30,4 @@ router.route('/:id').delete(async (req, res) => {
   res.status(deletedBoard ? 200 : 404).json(deletedBoard);
 });
 
-module.exports = router;
+export default router;
