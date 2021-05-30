@@ -1,4 +1,4 @@
-const dataBase = {
+export const dataBase = {
   _users: [],
   _boards: [],
   _tasks: [],
@@ -34,6 +34,4 @@ const dataBase = {
   setTasks(tasks) {
     this._tasks = tasks;
   }
-}
-
-module.exports = dataBase;
+};
