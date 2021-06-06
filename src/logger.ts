@@ -2,18 +2,22 @@ import { NextFunction, Request, Response } from 'express';
 import { finished } from 'stream';
 import { writeFile } from 'fs';
 
-export const logger = (req: Request, res: Response, next: NextFunction) => {
-  const {url, method, params, body} = req;
+export const logger = (isError: boolean) => {
+  const writePath = isError ? './error-logs.txt' : './logs.txt';
 
-  next();
+  return (req: Request, res: Response, next: NextFunction) => {
+    const {url, method, params, body} = req;
 
-  finished(res, () => {
-    const { statusCode } = res;
+    next();
 
-    const log = `${method} ${url} ${JSON.stringify(params)} ${JSON.stringify(body)} ${statusCode}`
+    finished(res, () => {
+      const { statusCode } = res;
 
-    writeFile('./logs.txt', `${log}\n`, {flag: 'a'}, () => {
-      console.log(log);
+      const log = `${method} ${url} ${JSON.stringify(params)} ${JSON.stringify(body)} ${statusCode}`
+
+      writeFile(writePath, `${log}\n`, {flag: 'a'}, () => {
+        console.log(log);
+      })
     })
-  })
-};
+  };
+}
