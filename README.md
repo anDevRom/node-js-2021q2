@@ -11,6 +11,12 @@
 git clone {repository URL}
 ```
 
+## Docker
+
+```
+docker-compose up
+```
+
 ## Installing NPM modules
 
 ```
